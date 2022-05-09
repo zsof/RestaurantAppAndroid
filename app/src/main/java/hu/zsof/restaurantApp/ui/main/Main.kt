@@ -12,6 +12,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import hu.zsof.restaurantApp.ui.screens.home.HomeList
 import hu.zsof.restaurantApp.ui.screens.login.Login
+import hu.zsof.restaurantApp.ui.screens.register.Register
 
 @Composable
 fun RestaurantMainScreen() {
@@ -32,6 +33,9 @@ fun RestaurantMainScreen() {
             composable(NavScreen.Login.route) {
                 Login(navController = navController)
             }
+            composable(NavScreen.Register.route){
+                Register(navController = navController)
+            }
         }
     }
 
@@ -42,5 +46,6 @@ sealed class NavScreen(val route: String) {
 
     object Home : NavScreen("Home")
     object Login : NavScreen("Login")
+    object Register: NavScreen("Register")
 
 }

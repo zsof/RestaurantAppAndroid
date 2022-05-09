@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +26,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import hu.zsof.restaurantApp.R
+import hu.zsof.restaurantApp.ui.main.AppBar
 import hu.zsof.restaurantApp.ui.theme.RestaurantAppTheme
 
 @Composable
@@ -35,19 +37,24 @@ fun HomeList(
     val restaurants = viewModel.restaurants
 
     val listState = rememberLazyListState()
-    Column(
-        modifier = Modifier
-            .background(MaterialTheme.colors.background)
+    Scaffold(
+        topBar = { AppBar() }
     ) {
-        LazyColumn(
-            state = listState,
-            contentPadding = PaddingValues(8.dp)
+        Column(
+
+            modifier = Modifier
+                .background(MaterialTheme.colors.background)
         ) {
-            items(
-                items = restaurants
-            )
-            { restaurant ->
-                HomeListData(restaurant = restaurant)
+            LazyColumn(
+                state = listState,
+                contentPadding = PaddingValues(8.dp)
+            ) {
+                items(
+                    items = restaurants
+                )
+                { restaurant ->
+                    HomeListData(restaurant = restaurant)
+                }
             }
         }
     }

@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
@@ -38,7 +39,7 @@ fun BottomNavBar(
     val tabs = NavItem.values()
 
     BottomNavigation(
-        backgroundColor = Color.Cyan,
+        backgroundColor = colors.secondaryVariant,
         modifier = Modifier.height(56.dp)
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -49,8 +50,8 @@ fun BottomNavBar(
                 label = {
                     Text(
                         text = stringResource(tab.title),
-                        color = Color.Black,
-                        fontSize = 12.sp
+                        color = Color.White,
+                        fontSize = 16.sp
                     )
                 },
                 selected = currentRoute == tab.route,
@@ -80,7 +81,7 @@ fun BottomNavBar(
 fun AppBar() {
     TopAppBar(
         elevation = 8.dp,
-        backgroundColor = Color.Cyan,
+        backgroundColor = colors.primaryVariant,
         modifier = Modifier.height(56.dp)
     ) {
         Text(
@@ -88,6 +89,7 @@ fun AppBar() {
                 .padding(8.dp)
                 .align(Alignment.CenterVertically),
             text = stringResource(R.string.app_bar_name),
+            fontSize= 24.sp,
             color = Color.Black
         )
     }

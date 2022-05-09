@@ -1,43 +1,38 @@
-package hu.zsof.restaurantApp.ui.screens.login
+package hu.zsof.restaurantApp.ui.screens.register
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Facebook
+import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.outlined.Games
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.*
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import hu.zsof.restaurantApp.HorizontalDottedProgressBar
 import hu.zsof.restaurantApp.ui.main.NavScreen
-import hu.zsof.restaurantApp.ui.screens.home.HomeViewModel
-import hu.zsof.restaurantApp.ui.theme.Shapes
+import hu.zsof.restaurantApp.ui.screens.login.LoginViewModel
 
 @Composable
-fun Login(
-    navController: NavHostController,
+fun Register(
+    navController: NavController,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
     val email = viewModel.email
@@ -79,11 +74,34 @@ fun Login(
                 imeAction = ImeAction.Next
             ),
             textStyle = TextStyle(color = Color.Black),
-            label = { Text(text = "Email address or Username") },
-            placeholder = { Text(text = "abc@gmail.com or xyz") },
+            label = { Text(text = "Email address") },
+            placeholder = { Text(text = "abc@gmail.com") },
             onValueChange = {
                 email.value = it
                 viewModel.validateEmail()
+            },
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+
+        OutlinedTextField(
+            value = userName.value,
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Filled.Face, contentDescription = null
+                )
+            },
+            maxLines = 1,
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Next,
+                capitalization = KeyboardCapitalization.Words
+            ),
+            textStyle = TextStyle(color = Color.Black),
+            shape = MaterialTheme.shapes.large,
+            label = { Text("User name") },
+            onValueChange = {
+                userName.value = it
             },
         )
 
@@ -139,7 +157,7 @@ fun Login(
             if (loading.value) {
                 HorizontalDottedProgressBar()
             } else {
-                Text(text = "Log In")
+                Text(text = "Register")
             }
         }
 
@@ -174,8 +192,8 @@ fun Login(
                 contentDescription = null
             )
             Text(
-                text = "Sign in with Facebook",
-                style = MaterialTheme.typography.h5.copy(fontSize = 14.sp),
+                text = "Register with Facebook",
+                style = MaterialTheme.typography.h4.copy(fontSize = 14.sp),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -194,29 +212,10 @@ fun Login(
                 contentDescription = null
             )
             Text(
-                text = "Sign in with Google",
-                style = MaterialTheme.typography.h5.copy(fontSize = 14.sp),
+                text = "Register with Google",
+                style = MaterialTheme.typography.h4.copy(fontSize = 14.sp),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
-            )
-        }
-
-        Row(
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally),
-        ) {
-            Text(
-                text = "Don't have an account?",
-                modifier = Modifier
-                    .padding(vertical = 16.dp),
-            )
-            Text(
-                text = "Register",
-                fontSize = 16.sp,
-                modifier = Modifier
-                    .padding(vertical = 16.dp, horizontal = 4.dp)
-                    .clickable(onClick = { navController.navigate(NavScreen.Register.route) }),
-                style = TextStyle(textDecoration = TextDecoration.Underline)
             )
         }
     }
