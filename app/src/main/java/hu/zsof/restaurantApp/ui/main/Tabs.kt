@@ -50,7 +50,7 @@ fun BottomNavBar(
                 label = {
                     Text(
                         text = stringResource(tab.title),
-                        color = Color.White,
+                        color = Color.Black,
                         fontSize = 16.sp
                     )
                 },
@@ -81,7 +81,7 @@ fun BottomNavBar(
 fun AppBar() {
     TopAppBar(
         elevation = 8.dp,
-        backgroundColor = colors.primaryVariant,
+        backgroundColor = colors.primary,
         modifier = Modifier.height(56.dp)
     ) {
         Text(

@@ -9,19 +9,28 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PushPin
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.StarPurple500
+import androidx.compose.material.icons.outlined.Games
+import androidx.compose.material.icons.outlined.Pin
+import androidx.compose.material.icons.outlined.PushPin
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import hu.zsof.restaurantApp.model.RestaurantData
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -38,7 +47,15 @@ fun HomeList(
 
     val listState = rememberLazyListState()
     Scaffold(
-        topBar = { AppBar() }
+        topBar = { AppBar() },
+        floatingActionButton = {
+            FloatingActionButton(onClick = { /*TODO*/ }) {
+
+            }
+
+        },
+        isFloatingActionButtonDocked = true,
+
     ) {
         Column(
 
@@ -76,43 +93,90 @@ private fun HomeListData(
         ConstraintLayout(
             modifier = Modifier.padding(8.dp)
         ) {
-            val (name, address) = createRefs()
+            val (image,name, address, pinIcon, rate, starIcon) = createRefs()
 
-            /*Image(
-                painter = painterResource(id = androidx.core.R.drawable.notification_template_icon_bg),
+            Image(
+                painter = painterResource(id = R.drawable.fagyizo),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
                     .constrainAs(image) {
                         start.linkTo(parent.start)
+                        top.linkTo(parent.top)
                         end.linkTo(name.start)
                         centerVerticallyTo(parent)
-                    }
 
-            )*/
+                    }
+                    .size(100.dp, 100.dp)
+
+            )
 
             Text(
                 modifier = Modifier
                     .constrainAs(name) {
-                        start.linkTo(parent.start)
+                        start.linkTo(image.end)
                     }
-                    .padding(8.dp),
+                    .padding(start = 8.dp, top = 8.dp, end = 8.dp),
                 text = restaurant.name,
-                textAlign = TextAlign.Center
+                style = TextStyle(fontWeight = FontWeight.Bold),
+                fontSize = 20.sp
             )
 
             Text(
+                text = restaurant.rate.toString(),
+                style = TextStyle(fontStyle = FontStyle.Italic, fontWeight = FontWeight.Bold),
+                modifier = Modifier
+                    .constrainAs(rate) {
+                        start.linkTo(image.end)
+                        top.linkTo(name.bottom)
+                        bottom.linkTo(pinIcon.top)
+                    }
+                    .padding(8.dp),
+                fontSize = 16.sp
+            )
+            Icon(
+                imageVector = Icons.Filled.Star,
+
+                contentDescription = null,
+                modifier = Modifier
+                    .constrainAs(starIcon) {
+                        top.linkTo(name.bottom)
+                        start.linkTo(rate.end)
+                        bottom.linkTo(pinIcon.top)
+                    }
+                    .size(30.dp),
+                tint = Color(0xFFFFC107),
+
+            )
+
+            Icon(
+                imageVector = Icons.Filled.PushPin,
+                contentDescription = null,
+                modifier = Modifier.constrainAs(pinIcon) {
+                    start.linkTo(image.end)
+                    bottom.linkTo(parent.bottom)
+                    top.linkTo(
+                        rate.bottom
+
+                    )
+                },
+                tint = Color(0xFFF44336)
+
+            )
+            Text(
                 modifier = Modifier
                     .constrainAs(address) {
-                        start.linkTo(parent.start)
-                        top.linkTo(name.bottom)
+                        start.linkTo(pinIcon.end)
+                        top.linkTo(rate.bottom)
+                        bottom.linkTo(parent.bottom)
                     }
                     .padding(8.dp),
                 text = restaurant.address,
-                textAlign = TextAlign.Center
+                style = TextStyle(fontStyle = FontStyle.Italic),
+                fontSize = 18.sp,
+                maxLines = 3,
             )
         }
+        
 
     }
 }
