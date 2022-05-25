@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,7 +29,7 @@ enum class NavItem(
     HOME(R.string.menu_home, Icons.Outlined.Home, NavScreen.Home.route),
     MAP(R.string.menu_map, Icons.Outlined.Place, null),
     FAVOURITES(R.string.menu_fav, Icons.Outlined.Favorite, null),
-    PROFILE(R.string.menu_profile, Icons.Outlined.Person, null),
+    PROFILE(R.string.menu_profile, Icons.Outlined.Person, NavScreen.Profile.route),
     LOGOUT(R.string.menu_log_out, Icons.Outlined.ExitToApp, NavScreen.Login.route);
 }
 

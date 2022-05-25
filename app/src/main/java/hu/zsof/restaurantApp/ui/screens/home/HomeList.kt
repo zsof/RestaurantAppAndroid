@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.PushPin
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarPurple500
@@ -50,7 +51,7 @@ fun HomeList(
         topBar = { AppBar() },
         floatingActionButton = {
             FloatingActionButton(onClick = { /*TODO*/ }) {
-
+                Icon(Icons.Filled.Add,"")
             }
 
         },
@@ -96,7 +97,7 @@ private fun HomeListData(
             val (image,name, address, pinIcon, rate, starIcon) = createRefs()
 
             Image(
-                painter = painterResource(id = R.drawable.fagyizo),
+                painter = painterResource(restaurant.image),
                 contentDescription = null,
                 modifier = Modifier
                     .constrainAs(image) {
